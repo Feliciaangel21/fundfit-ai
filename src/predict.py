@@ -47,11 +47,19 @@ def predict_financial_distress(input_data: dict):
     else:
         readiness_level = "Low Readiness"
 
+    if funding_readiness_score >= 75 and probability < 0.25:
+        investor_type = "Growth Investor"
+    elif funding_readiness_score >= 50:
+        investor_type = "Balanced Investor"
+    else:
+        investor_type = "Impact or Early-stage Investor"
+
     return {
         "prediction": int(prediction),
         "status": status,
         "distress_probability": round(float(probability), 4),
         "risk_level": risk_level,
         "funding_readiness_score": funding_readiness_score,
-        "readiness_level": readiness_level
+        "readiness_level": readiness_level,
+        "investor_type": investor_type
     }

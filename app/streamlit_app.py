@@ -148,7 +148,18 @@ def generate_basic_recommendations(input_data, result):
 
     if input_data["Decision_CashFlow_Management"] <= 3:
         recommendations.append("Strengthen cash flow management practices to reduce short-term financial risk.")
-
+    if result["investor_type"] == "Growth Investor":
+        recommendations.append(
+            "This SME may be suitable for investors looking for relatively stable businesses with growth potential."
+        )
+    elif result["investor_type"] == "Balanced Investor":
+        recommendations.append(
+            "This SME may be suitable for investors who balance risk control with moderate growth opportunities."
+        )
+    else:
+        recommendations.append(
+            "This SME may be more suitable for impact-oriented or early-stage investors who are willing to support higher-risk businesses."
+        )
     return recommendations
 
 
@@ -166,6 +177,7 @@ if st.button("Analyze SME"):
 
     st.subheader("SME Risk Summary")
     st.write(f"**Funding Readiness Level:** {result['readiness_level']}")
+    st.write(f"**Recommended Investor Type:** {result['investor_type']}")
 
     if result["prediction"] == 1:
         st.error(
